@@ -8,72 +8,58 @@
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="icon" href="/css/jct-logo-small-05.png" />
     <script>
-      window.onload = function() {
+      window.onload = function () {
         function checkLocationAccess() {
-          navigator.geolocation.getCurrentPosition((loc) => {
-            console.log(loc);
-          }, err => {
-            alert("Please allow location access");
-            checkLocationAccess();
-          });
+          navigator.geolocation.getCurrentPosition(
+            (loc) => {
+              console.log(loc);
+            },
+            (err) => {
+              alert("Please allow location access");
+              checkLocationAccess();
+            }
+          );
         }
         checkLocationAccess();
-      }
+      };
     </script>
   </head>
   <body>
     <div class="main">
       <img class="logo" src="css/jct-logo-small-05.png" alt="jct logo" />
       <div class="heading">
-        <h1 class="headline" >Welcome,</h1>
+        <h1 class="headline">Welcome,</h1>
         <h2 class="subline">Sign in to continue</h2>
       </div>
       <% if( err ) { %>
-        <p style="color: rgb(238, 68, 68); background: rgb(243, 199, 199); padding: .4rem 1rem;"> <%= err %> </p>
+      <p
+        style="
+          color: rgb(238, 68, 68);
+          background: rgb(243, 199, 199);
+          padding: 0.4rem 1rem;
+        "
+      >
+        <%= err %>
+      </p>
       <% } %>
       <form method="POST" class="center-content" action="/login">
         <input
-        class="labels"
-        type="text"
-        name="username"
-        placeholder="Username"
-        required
-      />
-      <input
-        class="labels"
-        type="password"
-        name="password"
-        id=""
-        placeholder="Password"
-        required
-      />
-      <button type="submit" class="buttons">Sign In</button>
-
+          class="labels"
+          type="text"
+          name="username"
+          placeholder="Username"
+          required
+        />
+        <input
+          class="labels"
+          type="password"
+          name="password"
+          id=""
+          placeholder="Password"
+          required
+        />
+        <button type="submit" class="buttons">Sign In</button>
       </form>
-      
     </div>
   </body>
-  <!-- The core Firebase JS SDK is always required and must be listed first -->
-<script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-app.js"></script>
-
-<!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
-<script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-analytics.js"></script>
-
-<script>
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  var firebaseConfig = {
-    apiKey: "AIzaSyDlaDZ9Kqa2qHKZXOazkigTcqDlrVcgTYs",
-    authDomain: "jct-wardbandi.firebaseapp.com",
-    projectId: "jct-wardbandi",
-    storageBucket: "jct-wardbandi.appspot.com",
-    messagingSenderId: "623681934023",
-    appId: "1:623681934023:web:fd89614932f2c9149624e2",
-    measurementId: "G-JCHVK6S6WG"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  firebase.analytics();
-</script>
 </html>

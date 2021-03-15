@@ -57,6 +57,8 @@ body{
     padding: .5rem;
     /* outline: none; */
     width: 80%;
+    text-decoration: none;
+    
 }
 .buttons:hover{
     background-color:#1d6b62;
