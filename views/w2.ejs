@@ -20,6 +20,8 @@
     <div class="main">
       <img class="logo" src="/css/jct-logo-small-05.png" alt="jct logo" />
       <div class="heading">
+        <h1 class="subline">Block number:</h1>
+        <h1 class="subline">Ward number:</h1>
         <h1 class="headline">Member details</h1>
 
       </div>
@@ -27,8 +29,10 @@
       <form method="POST" action="/entry" class="center-content">
         <input style="display: none;" name="latitude" id="latitude">
         <input style="display: none;" name="longitude" id="longitude">
+        <input style="display: none;" name="date" value="newDate()">
         <input class="labels" type="text" placeholder="Name" name="name" required />
-        <input class="labels" type="number" placeholder="Total member" name="totalMembers" required />
+        <input class="labels" type="number" placeholder="Adult" name="adult" required />
+        <input class="labels" type="number" placeholder="Minor" name="minor" required />
         <input class="labels" type="number" placeholder="Phone number" name="phn" required />
         
         <select class="labels" name="category" id="category" placeholder="category">
