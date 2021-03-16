@@ -22,8 +22,13 @@ app.use(cookieParser());
 //   db.close();
 // })
 
+const port = process.env.port || 3000;
+
 app.get("/", (req, res) => {
-  if (req.cookies.loggedIn) res.redirect("/w1");
+    if (req.cookies.loggedIn === 'true') {
+    res.redirect("/w1");
+    return;
+  };
   res.render("index", { err: undefined });
 });
 
@@ -84,6 +89,7 @@ app.post("/area", (req, res) => {
                 res.cookie("blockNumber", req.body.blockNumber);
                 res.cookie("wardNumber", req.body.wardNumber);
                 res.redirect("/w2");
+                return;
               }
             );
         } else {
@@ -92,19 +98,30 @@ app.post("/area", (req, res) => {
           res.cookie("blockNumber", req.body.blockNumber);
           res.cookie("wardNumber", req.body.wardNumber);
           res.redirect("/w2");
+          return;
         }
       });
   });
 });
 
 app.get("/w2", (req, res) => {
-  if (req.cookies.loggedIn) res.render("w2");
-  else res.redirect("/");
+  if (req.cookies.loggedIn === 'true') {
+    res.render("w2",{wardNumber:req.cookies.wardNumber, blockNumber: req.cookies.blockNumber});
+    return;
+  } else {
+    res.redirect("/");
+    return;
+  };
 });
 
 app.get("/w1", (req, res) => {
-  if (req.cookies.loggedIn) res.render("w1");
-  else res.redirect("/");
+  if (req.cookies.loggedIn === 'true') {
+    res.render("w1");
+    return;
+  } else {
+    res.redirect("/");
+    return;
+  };
 });
 
 app.get("/logout", (req, res) => {
@@ -148,4 +165,4 @@ app.post("/entry", (req, res) => {
   });
 });
 
-app.listen(3000, () => console.log("Server started on port 3000"));
+app.listen(port, () => console.log("Server started on port "+port));
