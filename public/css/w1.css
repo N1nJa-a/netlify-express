@@ -23,9 +23,10 @@ body{
     
 }
 .subline{
-    font-weight: lighter;
+    font-weight:normal;
     margin: 0 0 .5rem 0;
     font-size: 1rem;
+    color: rgb(63, 63, 63);
 }
 .center-content{
     align-self: center;
