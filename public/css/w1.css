@@ -20,10 +20,12 @@ body{
 .headline{
     font-weight: normal;
     margin: .5rem 0 0 0;
+    
 }
 .subline{
     font-weight: lighter;
     margin: 0 0 .5rem 0;
+    font-size: 1rem;
 }
 .center-content{
     align-self: center;
