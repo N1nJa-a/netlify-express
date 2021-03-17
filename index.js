@@ -26,10 +26,28 @@ const port = process.env.PORT || 3000;
 
 app.get("/", (req, res) => {
     if (req.cookies.loggedIn === 'true') {
-    res.redirect("/w1");
-    return;
-  };
+      MongoClient.connect(mongodbUrl, function(err, db) {
+        if(err) throw err;
+        const userid = new ObjectID(req.cookies.user);
+        db.db('JCTWARDBADNI')
+          .collection('User')
+          .findOne({_id: userid}, (err, data) => {
+            if(err) throw err;
+            console.log(data, req.cookies.user)
+            if(data === null) {
+              res.cookie('user', null);
+              res.cookie('loggedIn', false);
+              res.render('index',{err: undefined});
+              return;
+            } else {
+              res.redirect('/w1');
+              return;
+            }
+          })
+      })
+  } else {
   res.render("index", { err: undefined });
+  }
 });
 
 app.post("/login", (req, res) => {
@@ -106,7 +124,8 @@ app.post("/area", (req, res) => {
 
 app.get("/w2", (req, res) => {
   if (req.cookies.loggedIn === 'true') {
-    res.render("w2",{wardNumber:req.cookies.wardNumber, blockNumber: req.cookies.blockNumber});
+    res.render("w2",{wardNumber:req.cookies.wardNumber, blockNumber: req.cookies.blockNumber,
+    name:req.cookies.name, number: req.cookies.number});
     return;
   } else {
     res.redirect("/");
@@ -116,7 +135,7 @@ app.get("/w2", (req, res) => {
 
 app.get("/w1", (req, res) => {
   if (req.cookies.loggedIn === 'true') {
-    res.render("w1");
+    res.render("w1",{blockNumber: req.cookies.blockNumber});
     return;
   } else {
     res.redirect("/");
@@ -157,6 +176,8 @@ app.post("/entry", (req, res) => {
             { $set: { ...data } },
             (err, updatedUser) => {
               if (err) throw err;
+              res.cookie('name',req.body.name);
+              res.cookie('number',req.body.phn);
               db.close();
               res.redirect("/w2");
             }

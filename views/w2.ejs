@@ -12,9 +12,8 @@
         navigator.geolocation.getCurrentPosition((pos) => {
           document.getElementById("latitude").value = pos.coords.latitude;
           document.getElementById("longitude").value = pos.coords.longitude;
-          document.getElementById("dateInput").value = new Date();
-          };
         });
+        document.getElementById("dateInput").value = new Date();
       };
     </script>
   </head>
@@ -24,7 +23,7 @@
       <div class="heading">
         <h1 class="subline">Block number: <%= blockNumber %></h1>
         <h1 class="subline">Ward number: <%= wardNumber %></h1>
-        <h1 class="subline">Last entry (Name: <%= wardNumber %> + Number: <%= wardNumber %>) </h1>
+        <h1 class="subline">Last entry (Name: <%= name %> + Number: <%= number %>) </h1>
         <h1 class="headline">Member details</h1>
       </div>
 
@@ -33,8 +32,8 @@
         <input style="display: none" name="longitude" id="longitude" />
         <input
           style="display: none"
-          name="dateInput"
-          value="new Date()"
+          name="date"
+          id="dateInput"
         />
         <input
           class="labels"

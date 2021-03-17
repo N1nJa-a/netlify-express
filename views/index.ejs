@@ -7,22 +7,6 @@
     <title>JCT | Wardbandi</title>
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="icon" href="/css/jct-logo-small-05.png" />
-    <script>
-      window.onload = function () {
-        function checkLocationAccess() {
-          navigator.geolocation.getCurrentPosition(
-            (loc) => {
-              // console.log(loc);
-            },
-            (err) => {
-              alert("Please allow location access");
-              checkLocationAccess();
-            }
-          );
-        }
-        checkLocationAccess();
-      };
-    </script>
   </head>
   <body>
     <div class="main">
