@@ -1,7 +1,6 @@
 {
   "name": "wardbandi-pwa",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
@@ -15,6 +14,15 @@
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "json2xls": "^0.1.2",
-    "mongodb": "^3.6.4"
-  }
+    "mongodb": "^3.6.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/N1nJa-a/jct-wardbandi.git"
+  },
+  "bugs": {
+    "url": "https://github.com/N1nJa-a/jct-wardbandi/issues"
+  },
+  "homepage": "https://github.com/N1nJa-a/jct-wardbandi#readme",
+  "description": ""
 }
