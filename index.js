@@ -8,12 +8,9 @@ const ObjectID = require("mongodb").ObjectID;
 // app.get('/',(req,res)=> res.send('Hello World'));
 // app.listen(process.env.Portt || port, ()=> console.log('Example app listening at htts://loca;host:${port}'));
 
-// const mongodbUrl =
-//   "mongodb+srv://harshad:harshad@cluster0.mr9yg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-
-
 const mongodbUrl =
-  "mongodb://localhost:27017";
+  "mongodb+srv://harshad:harshad@cluster0.mr9yg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+
 
 app.use(express.static("public"));
 app.set("view engine", "ejs");
