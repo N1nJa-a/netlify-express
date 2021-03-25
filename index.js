@@ -8,8 +8,12 @@ const ObjectID = require("mongodb").ObjectID;
 // app.get('/',(req,res)=> res.send('Hello World'));
 // app.listen(process.env.Portt || port, ()=> console.log('Example app listening at htts://loca;host:${port}'));
 
+// const mongodbUrl =
+//   "mongodb+srv://harshad:harshad@cluster0.mr9yg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+
+
 const mongodbUrl =
-  "mongodb+srv://harshad:harshad@cluster0.mr9yg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+  "mongodb://localhost:27017";
 
 app.use(express.static("public"));
 app.set("view engine", "ejs");
@@ -26,20 +30,34 @@ const port = process.env.PORT || 3000;
 
 app.get("/", (req, res) => {
     if (req.cookies.loggedIn === 'true') {
-      MongoClient.connect(mongodbUrl, function(err, db) {
-        if(err) throw err;
         const userid = new ObjectID(req.cookies.user);
-        db.db('JCTWARDBADNI')
+        MongoClient.connect(mongodbUrl, function(err, db) {
+        if(err) throw err;
+        db.db('JCTWARDBANDI')
           .collection('User')
           .findOne({_id: userid}, (err, data) => {
             if(err) throw err;
-            console.log(data, req.cookies.user)
             if(data === null) {
               res.cookie('user', null);
               res.cookie('loggedIn', false);
               res.render('index',{err: undefined});
               return;
             } else {
+              if(data.lastEntry) {
+                res.cookie('name',data.lastEntry.name);
+                res.cookie('number',data.lastEntry.phn);
+                res.cookie('blockNumber', data.lastEntry.blockNumber);
+                res.cookie('wardNumber', data.lastEntry.wardNumber);
+                res.cookie('nameOfArea', data.lastEntry.nameOfArea);
+                res.cookie('totalEntries', data.totalEntries);
+              } else {
+                res.cookie('name',"none");
+                res.cookie('number', 'none');
+                res.cookie('blockNumber', 'none');
+                res.cookie('nameOfArea', 'none');
+                res.cookie('wardNumber', 'none');
+                res.cookie('totalEntries', 0);
+              }
               res.redirect('/w1');
               return;
             }
@@ -67,6 +85,21 @@ app.post("/login", (req, res) => {
         } else {
           res.cookie("loggedIn", true);
           res.cookie("user", data._id);
+          if(data.lastEntry) {
+            res.cookie('name',data.lastEntry.name);
+            res.cookie('number',data.lastEntry.phn);
+            res.cookie('blockNumber', data.lastEntry.blockNumber);
+            res.cookie('wardNumber', data.lastEntry.wardNumber);
+            res.cookie('nameOfArea', data.lastEntry.nameOfArea);
+            res.cookie('totalEntries', data.totalEntries);
+          } else {
+            res.cookie('name',"none");
+            res.cookie('number', 'none');
+            res.cookie('blockNumber', 'none');
+            res.cookie('nameOfArea', 'none');
+            res.cookie('wardNumber', 'none');
+            res.cookie('totalEntries', 0);
+          }
           res.redirect("/w1");
         }
         db.close();
@@ -106,6 +139,7 @@ app.post("/area", (req, res) => {
                 res.cookie("nameOfArea", req.body.nameOfArea);
                 res.cookie("blockNumber", req.body.blockNumber);
                 res.cookie("wardNumber", req.body.wardNumber);
+                res.cookie('serialNo', 1);
                 res.redirect("/w2");
                 return;
               }
@@ -115,6 +149,12 @@ app.post("/area", (req, res) => {
           res.cookie("nameOfArea", req.body.nameOfArea);
           res.cookie("blockNumber", req.body.blockNumber);
           res.cookie("wardNumber", req.body.wardNumber);
+          let area = data.areas.filter(area => 
+            area.nameOfArea === req.body.nameOfArea &&
+            area.blockNumber === req.body.blockNumber &&
+            area.wardNumber === req.body.wardNumber)[0];
+          let sno = area.people ? area.people.length+1 : 1;
+          res.cookie('serialNo', sno)
           res.redirect("/w2");
           return;
         }
@@ -124,9 +164,25 @@ app.post("/area", (req, res) => {
 
 app.get("/w2", (req, res) => {
   if (req.cookies.loggedIn === 'true') {
-    res.render("w2",{wardNumber:req.cookies.wardNumber, blockNumber: req.cookies.blockNumber,
-    name:req.cookies.name, number: req.cookies.number});
-    return;
+    const userid = new ObjectID(req.cookies.user);
+    MongoClient.connect(mongodbUrl, function(err, db) {
+      if(err) throw err;
+      db.db('JCTWARDBANDI')
+        .collection('User')
+        .findOne({_id: userid}, (err, data) => {
+          if(err) throw err;
+          if(data === null) {
+            res.cookie('user', null);
+            res.cookie('loggedIn', false);
+            res.redirect('/');
+            return;
+          } else {
+            res.render("w2",{wardNumber:req.cookies.wardNumber, blockNumber: req.cookies.blockNumber,
+            name:req.cookies.name, number: req.cookies.number, serialNumber: req.cookies.serialNo, totalEntries: req.cookies.totalEntries});
+            return;
+          }
+        })
+      })
   } else {
     res.redirect("/");
     return;
@@ -135,8 +191,24 @@ app.get("/w2", (req, res) => {
 
 app.get("/w1", (req, res) => {
   if (req.cookies.loggedIn === 'true') {
-    res.render("w1",{blockNumber: req.cookies.blockNumber});
-    return;
+    const userid = new ObjectID(req.cookies.user);
+    MongoClient.connect(mongodbUrl, function(err, db) {
+      if(err) throw err;
+      db.db('JCTWARDBANDI')
+        .collection('User')
+        .findOne({_id: userid}, (err, data) => {
+          if(err) throw err;
+          if(data === null) {
+            res.cookie('user', null);
+            res.cookie('loggedIn', false);
+            res.redirect('/');
+            return;
+          } else {
+            res.render("w1",{blockNumber: req.cookies.blockNumber, totalEntries: req.cookies.totalEntries});
+            return;
+          }
+        })
+      })
   } else {
     res.redirect("/");
     return;
@@ -158,6 +230,10 @@ app.post("/entry", (req, res) => {
       .collection("User")
       .findOne({ _id: userId }, (err, data) => {
         if (err) throw err;
+        data.lastEntry = {
+          ...req.body,
+          nameOfArea, blockNumber, wardNumber
+        };
         const areaRef = data.areas.filter(
           (area) =>
             area.nameOfArea === nameOfArea &&
@@ -168,6 +244,11 @@ app.post("/entry", (req, res) => {
           areaRef.people = [];
         }
         areaRef.people.push(req.body);
+        if(data.totalEntries === undefined) {
+          data.totalEntries = 1;
+        } else {
+          data.totalEntries += 1;
+        }
         delete data._id;
         db.db("JCTWARDBANDI")
           .collection("User")
@@ -178,6 +259,8 @@ app.post("/entry", (req, res) => {
               if (err) throw err;
               res.cookie('name',req.body.name);
               res.cookie('number',req.body.phn);
+              res.cookie('totalEntries', data.totalEntries);
+              res.cookie('serialNo', areaRef.people.length + 1);
               db.close();
               res.redirect("/w2");
             }
