@@ -11,6 +11,8 @@ const ObjectID = require("mongodb").ObjectID;
 const mongodbUrl =
   "mongodb+srv://harshad:harshad@cluster0.mr9yg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
+// const mongodbUrl = "mongodb://localhost:27017";
+
 
 app.use(express.static("public"));
 app.set("view engine", "ejs");
@@ -201,7 +203,7 @@ app.get("/w1", (req, res) => {
             res.redirect('/');
             return;
           } else {
-            res.render("w1",{blockNumber: req.cookies.blockNumber, totalEntries: req.cookies.totalEntries});
+            res.render("w1",{entries: req.cookies.entries, blockNumber: req.cookies.blockNumber, totalEntries: req.cookies.totalEntries});
             return;
           }
         })
@@ -258,6 +260,7 @@ app.post("/entry", (req, res) => {
               res.cookie('number',req.body.phn);
               res.cookie('totalEntries', data.totalEntries);
               res.cookie('serialNo', areaRef.people.length + 1);
+              res.cookie('entries', +req.cookies.entries + 1);
               db.close();
               res.redirect("/w2");
             }
@@ -265,5 +268,10 @@ app.post("/entry", (req, res) => {
       });
   });
 });
+
+app.get('/resetcounter',(req, res) => {
+  res.cookie('entries',0);
+  res.redirect('/w1');
+})
 
 app.listen(port, () => console.log("Server started on port "+port));

@@ -30,7 +30,10 @@
       <div class="heading">
         <h1 class="subline" style="text-align:justify ;">Last Block number: <%= blockNumber %>  </h1>
         <h1 class="subline" style="text-align:justify ;">Total entries by user: <%= totalEntries %>  </h1>
-        <button class="buttons" style="background-color: green; align-items: center;">Start Entry Counter</button>
+        <h1 class="subline" style="text-align: justify;">Entries done today: <%= entries %></h1>
+        <form method="GET" action="/resetcounter">
+          <button type="submit" class="buttons" style="background-color: green; align-items: center;">Reset Entry Counter</button>
+        </form>
         <h1 class="headline">Wardbandi</h1>
 
       </div>
