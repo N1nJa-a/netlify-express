@@ -9,12 +9,16 @@
     <link rel="icon" href="/css/jct-logo-small-05.png" />
     <script>
       window.onload = function () {
-        navigator.geolocation.getCurrentPosition((pos) => {
-          document.getElementById("latitude").value = pos.coords.latitude;
-          document.getElementById("longitude").value = pos.coords.longitude;
-          document.getElementById("accuracy").value = pos.coords.accuracy;
-
-        });
+        navigator.geolocation.getCurrentPosition({enableHighAccuracy: true, timeout: 5000}, 
+          (pos) => {
+            document.getElementById("latitude").value = pos.coords.latitude;
+            document.getElementById("longitude").value = pos.coords.longitude;
+            document.getElementById("accuracy").value = pos.coords.accuracy;
+          }
+      
+          
+      
+          );
         document.getElementById("dateInput").value = new Date();
       };
     </script>
@@ -27,18 +31,16 @@
         <h1 class="subline">Ward number: <%= wardNumber %></h1>
         <h1 class="subline">Total entries: <%= totalEntries %></h1>
         <h1 class="subline">S Number: <%= serialNumber %></h1>
-        <h1 class="subline">Last entry (Name: <%= name %> + Number: <%= number %>) </h1>
+        <h1 class="subline">
+          Last entry (Name: <%= name %> + Number: <%= number %>)
+        </h1>
         <h1 class="headline">Member details</h1>
       </div>
 
       <form method="POST" action="/entry" class="center-content">
         <input style="display: none" name="latitude" id="latitude" />
         <input style="display: none" name="longitude" id="longitude" />
-        <input
-          style="display: none"
-          name="date"
-          id="dateInput"
-        />
+        <input style="display: none" name="date" id="dateInput" />
         <input
           class="labels"
           type="text"
