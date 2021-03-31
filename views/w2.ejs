@@ -12,6 +12,8 @@
         navigator.geolocation.getCurrentPosition((pos) => {
           document.getElementById("latitude").value = pos.coords.latitude;
           document.getElementById("longitude").value = pos.coords.longitude;
+          document.getElementById("accuracy").value = pos.coords.accuracy;
+
         });
         document.getElementById("dateInput").value = new Date();
       };
