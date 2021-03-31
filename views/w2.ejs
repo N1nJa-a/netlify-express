@@ -9,16 +9,19 @@
     <link rel="icon" href="/css/jct-logo-small-05.png" />
     <script>
       window.onload = function () {
-        navigator.geolocation.getCurrentPosition(enableHighAccuracy: true, timeout: 5000, 
+        navigator.geolocation.getCurrentPosition(
           (pos) => {
             document.getElementById("latitude").value = pos.coords.latitude;
             document.getElementById("longitude").value = pos.coords.longitude;
             document.getElementById("accuracy").value = pos.coords.accuracy;
+          },
+          console.log,
+          {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0,
           }
-      
-          
-      
-          );
+        );
         document.getElementById("dateInput").value = new Date();
       };
     </script>
