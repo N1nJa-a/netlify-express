@@ -9,19 +9,23 @@
     <link rel="icon" href="/css/jct-logo-small-05.png" />
     <script>
       window.onload = function () {
-        navigator.geolocation.getCurrentPosition(
+        navigator.geolocation.watchPosition(
           (pos) => {
             document.getElementById("latitude").value = pos.coords.latitude;
             document.getElementById("longitude").value = pos.coords.longitude;
             document.getElementById("accuracy").innerText = pos.coords.accuracy;
           },
-          console.log,
-          {
-            enableHighAccuracy: true,
-            timeout: 5000,
-            maximumAge: 0,
-          }
-        );
+          
+        )
+
+        /*fetch('https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyBJGrF8aUxB__us2KxtQVkLONtmoBWxa6c')
+        .then(data => data.json())
+        .then(data => {
+          document.getElementById("latitude").value = data.location.lat;
+          document.getElementById("longitude").value = data.location.lng;}
+        )*/
+        ,{ enableHighAccuracy: true, timeout: 10000, maximumAge: 0 },
+
         document.getElementById("dateInput").value = new Date();
       };
     </script>
@@ -37,9 +41,7 @@
         <h1 class="subline">
           Last entry (Name: <%= name %> + Number: <%= number %>)
         </h1>
-        <h1 class="subline"  >
-          Accuracy: <span id="accuracy"></span>m
-        </h1>
+        <h1 class="subline">Accuracy: <span id="accuracy"></span>m</h1>
         <h1 class="headline">Member details</h1>
       </div>
 
