@@ -13,7 +13,7 @@
           (pos) => {
             document.getElementById("latitude").value = pos.coords.latitude;
             document.getElementById("longitude").value = pos.coords.longitude;
-            document.getElementById("accuracy").value = pos.coords.accuracy;
+            document.getElementById("accuracy").innerText = pos.coords.accuracy;
           },
           console.log,
           {
@@ -36,6 +36,9 @@
         <h1 class="subline">S Number: <%= serialNumber %></h1>
         <h1 class="subline">
           Last entry (Name: <%= name %> + Number: <%= number %>)
+        </h1>
+        <h1 class="subline"  >
+          Accuracy:<span id="accuracy"></span>  m
         </h1>
         <h1 class="headline">Member details</h1>
       </div>
