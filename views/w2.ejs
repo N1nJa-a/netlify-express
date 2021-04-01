@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/css/w1.css" />
     <link rel="icon" href="/css/jct-logo-small-05.png" />
     <script>
-      window.onload = function () {
+      /*window.onload = function () {
         navigator.geolocation.watchPosition(
           (pos) => {
             document.getElementById("latitude").value = pos.coords.latitude;
@@ -16,7 +16,7 @@
             document.getElementById("accuracy").innerText = pos.coords.accuracy;
           },
           
-        )
+        )*/
 
         /*fetch('https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyBJGrF8aUxB__us2KxtQVkLONtmoBWxa6c')
         .then(data => data.json())
@@ -24,7 +24,15 @@
           document.getElementById("latitude").value = data.location.lat;
           document.getElementById("longitude").value = data.location.lng;}
         )*/
-        ,{ enableHighAccuracy: true, timeout: 10000, maximumAge: 0 },
+        // ,{ enableHighAccuracy: true, timeout: 10000, maximumAge: 0 },
+        window.onload = function () {
+        navigator.geolocation.watchPosition(
+          (pos) => {
+            document.getElementById("latitude").value = pos.coords.latitude;
+            document.getElementById("longitude").value = pos.coords.longitude;
+            document.getElementById("accuracy").innerText = pos.coords.accuracy;
+          },null
+        ,{ enableHighAccuracy: true, timeout: 10000, maximumAge: 0 })
 
         document.getElementById("dateInput").value = new Date();
       };
