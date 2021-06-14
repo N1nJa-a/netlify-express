@@ -37,11 +37,18 @@
         <h1 class="headline">Wardbandi</h1>
 
       </div>
-      <form method="POST" action="/area" class="center-content">
+      <p style="
+          color: rgb(238, 68, 68);
+          background: rgb(243, 199, 199);
+          padding: 0.4rem 1rem;
+          display: none;
+        " id='blockNotSame'>Block numbers don't match</p>
+
+      <form id='wardForm' method="POST" action="/area" class="center-content" onsubmit="validate(event)">
         <input class="labels" type="text" placeholder="Name of area" name="nameOfArea" required />
         <input class="labels" type="number" placeholder="Block number" name="blockNumber" required />
         <input class="labels" type="number" placeholder="Ward number" name="wardNumber" required />
-        <button type="submit" class="buttons">Next</button>
+        <button id='nextM' type="submit" class="buttons">Next</button>
         <!-- <div class="center-content"> -->
           
           <button class="buttons" style="background-color: red; margin-top: 4rem;">
@@ -53,10 +60,29 @@
         <!-- </div> -->
 
       </form>
-      
-      
-
-      
+      <script>
+        let btn = document.querySelector('#nextM');
+        let wardForm = document.querySelector('#wardForm');
+        let errEl = document.querySelector('#blockNotSame');
+        
+        function validate(event) {
+          let valid = !((!wardForm.blockNumber.value && !wardForm.wardNumber.value) || wardForm.blockNumber.value !== wardForm.wardNumber.value);
+          if(!valid) {
+            event.preventDefault();
+            errEl.style.display = 'block';
+            return;
+          }
+          errEl.style.display = 'none';
+          btn.classList.remove('buttons');
+          btn.classList.add('disabledButton');
+          btn.disabled = true;
+          setTimeout(() => { 
+            btn.classList.remove('disabledButton');
+            btn.classList.add('buttons');
+            btn.disabled = false;
+          }, 5000);
+        }
+      </script>
     </div>
   </body>
 </html>
