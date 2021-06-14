@@ -63,6 +63,17 @@ body{
     text-decoration: none;
     
 }
+
+.disabledButton{ 
+    border-style: none;
+    border-radius: .3rem;
+    margin-top: 1rem;
+    padding: .5rem;
+    /* outline: none; */
+    width: 80%;
+    text-decoration: none;
+}
+
 .buttons:hover{
     background-color:#1d6b62;
 }
