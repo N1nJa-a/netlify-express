@@ -92,10 +92,7 @@ body{
 
 
 }
-.logout{
-    position: fixed;
-    bottom: 4rem;
-}
+
 .mDetails{
     display: flex;
     flex-direction: column;
