@@ -13,7 +13,7 @@
           (pos) => {
             document.getElementById("latitude").value = pos.coords.latitude;
             document.getElementById("longitude").value = pos.coords.longitude;
-            document.getElementById("accuracy").innerText = pos.coords.accuracy;
+            document.getElementById("accuracy").innerText = Math.round(pos.coords.accuracy),0;
           },null
         ,{ enableHighAccuracy: true, timeout: 10000, maximumAge: 0 })
 
@@ -25,15 +25,28 @@
     <div class="main">
       <img class="logo" src="/css/jct-logo-small-05.png" alt="jct logo" />
       <div class="heading">
-        <h1 class="subline">Block number: <%= blockNumber %></h1>
-        <h1 class="subline">Ward number: <%= wardNumber %></h1>
-        <h1 class="subline">Total entries: <%= totalEntries %></h1>
-        <h1 class="subline">S Number: <%= serialNumber %></h1>
-        <h1 class="subline">
-          Last entry (Name: <%= name %> + Number: <%= number %>)
-        </h1>
-        <h1 class="subline">Accuracy: <span id="accuracy"></span>m</h1>
-        <h1 class="headline">Member details</h1>
+        <div class="mDetails">
+          <div class="mDetailsRow">
+            
+            <h1 class="subline">Block: <%= blockNumber %></h1>
+            <h1 class="subline">Serial Number: <%= serialNumber %></h1>
+          </div>
+          <div class="mDetailsRow">
+            <h1 class="subline">Total Entry: <%= totalEntries %></h1>
+            <h1 class="subline">Accuracy:  <span id="accuracy"></span>m</h1>
+
+          </div>
+          <div class="mDetailsRow">
+            <h1 class="subline">
+              Name: <%= name %>
+            </h1>
+            <h1 class="subline">Mobile: <%= number %></h1>
+
+          </div>
+          <!-- <h1 class="subline">Ward number: <%= wardNumber %></h1> -->
+          <h1 class="headline">Member details</h1>
+
+        </div>
       </div>
 
       <form method="POST" action="/entry" class="center-content">
@@ -64,7 +77,7 @@
         <input
           class="labels"
           type="number"
-          placeholder="Phone number"
+          placeholder="Mobile"
           name="phn"
           required
         />
@@ -85,12 +98,13 @@
       <form method="GET" action="/">
         <button
           type="submit"
+
           style="
             width: 100px;
-            background-color: rgb(112, 7, 7);
+            background-color: #5CE959;
             margin-top: 5rem;
           "
-          class="buttons"
+          class="buttons "
         >
           Finish
         </button>

@@ -28,12 +28,15 @@
     <div class="main">
       <img class="logo" src="/css/jct-logo-small-05.png" alt="jct logo" />
       <div class="heading">
-        <h1 class="subline" style="text-align:justify ;">Last Block number: <%= blockNumber %>  </h1>
-        <h1 class="subline" style="text-align:justify ;">Total entries by user: <%= totalEntries %>  </h1>
-        <h1 class="subline" style="text-align: justify;">Entries done today: <%= entries %></h1>
-        <form method="GET" action="/resetcounter">
-          <button type="submit" class="buttons" style="background-color: green; align-items: center;">Reset Entry Counter</button>
-        </form>
+        <div class="titleInfo">
+          <h1 class="subline" style="text-align:justify ;">Last Block: <%= blockNumber %>  </h1>
+          <h1 class="subline" style="text-align:justify ;">Total Entry: <%= totalEntries %>  </h1>
+
+        </div>
+        <!-- <h1 class="subline" style="text-align: justify;">Entries done today: <%= entries %></h1> -->
+        <!-- <form method="GET" action="/resetcounter"> -->
+          <!-- <button type="submit" class="buttons" style="background-color: green; align-items: center;">Reset Entry Counter</button> -->
+        <!-- </form> -->
         <h1 class="headline">Wardbandi</h1>
 
       </div>
@@ -47,11 +50,11 @@
       <form id='wardForm' method="POST" action="/area" class="center-content" onsubmit="validate(event)">
         <input class="labels" type="text" placeholder="Name of area" name="nameOfArea" required />
         <input class="labels" type="number" placeholder="Block number" name="blockNumber" required />
-        <input class="labels" type="number" placeholder="Ward number" name="wardNumber" required />
+        <input class="labels" type="number" placeholder="Confirm block number" name="wardNumber" required />
         <button id='nextM' type="submit" class="buttons">Next</button>
         <!-- <div class="center-content"> -->
           
-          <button class="buttons" style="background-color: red; margin-top: 4rem;">
+          <button class="buttons logout" style="background-color: red; margin-top: 4rem;">
             <a  href="/logout" style="text-decoration: none; color: rgb(255, 255, 255);">Logout</a>
   
           </button>
