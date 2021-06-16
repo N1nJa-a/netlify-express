@@ -13,7 +13,7 @@
           (pos) => {
             document.getElementById("latitude").value = pos.coords.latitude;
             document.getElementById("longitude").value = pos.coords.longitude;
-            document.getElementById("accuracy").innerText = Math.round(pos.coords.accuracy);
+            document.getElementById("accuracy").innerText = pos.coords.accuracy;
           },null
         ,{ enableHighAccuracy: true, timeout: 10000, maximumAge: 0 })
 
