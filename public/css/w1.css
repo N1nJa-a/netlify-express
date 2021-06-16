@@ -49,9 +49,7 @@ body{
     
 
 }
-.labels:focus{
-    
-}
+
 .buttons{
     color: white;
     background-color: #2b9e91;
@@ -83,12 +81,15 @@ body{
     outline: none;
 }
 .titleInfo{
-    display: flex;
-    justify-content: space-between;
-    width: 12.5rem;
-    border-color: #757575;
-    border-radius: .2rem;
-    align-content: center;
+    width: 80vw;
+        display: flex;
+        justify-content: space-around;
+        flex-direction: row;
+        border: solid;
+        border-radius: .2rem;
+        border-color: #757575;
+        /* margin: 0 .5rem; */
+        border-width: 2px
 
 
 }
@@ -99,6 +100,9 @@ body{
     justify-content: center;
     align-items: center;
     width:100vw;
+    /* border-width: 2px; */
+    /* border: solid; */
+    /* border-color: #757575; */
 }
 .mDetailsRow{
     display: flex;
