@@ -75,6 +75,7 @@
             errEl.style.display = 'block';
             return;
           }
+          wardForm.nameOfArea.value = wardForm.nameOfArea.value.toLowerCase();
           errEl.style.display = 'none';
           btn.classList.remove('buttons');
           btn.classList.add('disabledButton');
