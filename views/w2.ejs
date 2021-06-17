@@ -9,9 +9,11 @@
     <link rel="stylesheet" href="/css/w1.css" />
     <link rel="icon" href="/css/jct-logo-small-05.png" />
     <script>
+        let accuray = 0;
         window.onload = function () {
         navigator.geolocation.watchPosition(
           (pos) => {
+            accuray= pos.coords.accuracy;
             document.getElementById("latitude").value = pos.coords.latitude;
             document.getElementById("longitude").value = pos.coords.longitude;
             document.getElementById("accuracy").innerText = Math.round(pos.coords.accuracy);
@@ -49,8 +51,14 @@
 
         </div>
       </div>
+      <p style="
+                color: rgb(238, 68, 68);
+                background: rgb(243, 199, 199);
+                padding: 0.4rem 1rem;
+                display: none;
+              " id='accuracyTooLow'>Accuracy is too less to submit</p>
 
-      <form method="POST" action="/entry" class="center-content">
+      <form method="POST" action="/entry" class="center-content" onsubmit="validate(event)">
         <input style="display: none" name="latitude" id="latitude" />
         <input style="display: none" name="longitude" id="longitude" />
         <input style="display: none" name="date" id="dateInput" />
@@ -111,5 +119,15 @@
         </button>
       </form>
     </div>
+    <script>
+      function validate(event) {
+        if(accuray > 5){
+          document.querySelector('#accuracyTooLow').style.display = 'block';
+          event.preventDefault();
+          return;
+        }
+          document.querySelector('#accuracyTooLow').style.display = 'none';
+      }
+    </script>
   </body>
 </html>
