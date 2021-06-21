@@ -12,7 +12,7 @@
         let accuray = 0;
         window.onload = function () {
           function checkLocationAccess() {
-          navigator.geolocation.getCurrentPosition(
+          navigator.geolocation.watchPosition(
             (loc) => {
               // console.log(loc);
             },
