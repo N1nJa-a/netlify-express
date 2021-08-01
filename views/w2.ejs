@@ -159,7 +159,7 @@
       let memberForm = document.querySelector('#memberForm');
 
       function validate(event) {
-        if(accuray > 5){
+        if(accuray > 6){
           document.querySelector('#accuracyTooLow').style.display = 'block';
           event.preventDefault();
           return;
@@ -176,8 +176,8 @@
           btn.classList.remove('disabledButton');
           btn.classList.add('buttons');
           btn.disabled = false;
-        }, 1000);
-        document.querySelector('#accuracyTooLow').style.display = 'none';
+        }, 3000);
+        // document.querySelector('#accuracyTooLow').style.display = 'none';
         document.querySelector('#accuracyTooLow').style.display = 'none';
       }
     </script>
