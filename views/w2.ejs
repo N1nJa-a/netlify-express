@@ -12,7 +12,7 @@
         let accuray = 0;
         window.onload = function () {
           function checkLocationAccess() {
-          navigator.geolocation.getCurrentPosition(
+          navigator.geolocation.watchPosition(
             (loc) => {
               // console.log(loc);
             },
@@ -80,11 +80,18 @@
         </div>
       </div>
       <p style="
-                color: rgb(238, 68, 68);
-                background: rgb(243, 199, 199);
-                padding: 0.4rem 1rem;
-                display: none;
-              " id='accuracyTooLow'>Accuracy is too less to submit</p>
+        color: rgb(238, 68, 68);
+        background: rgb(243, 199, 199);
+        padding: 0.4rem 1rem;
+        display: none;
+      " id='accuracyTooLow'>Accuracy is too less to submit</p>
+
+      <p style="
+        color: rgb(238, 68, 68);
+        background: rgb(243, 199, 199);
+        padding: 0.4rem 1rem;
+        display: none;
+      " id='alreadyAdded'>Already added</p>
 
       <form id="memberForm" method="POST" action="/entry" class="center-content" onsubmit="validate(event)">
         <input style="display: none" name="latitude" id="latitude" />
@@ -149,10 +156,16 @@
     </div>
     <script>
       let btn = document.querySelector('#nextBtn');
+      let memberForm = document.querySelector('#memberForm');
 
       function validate(event) {
-        if(accuray > 5){
+        if(accuray > 6){
           document.querySelector('#accuracyTooLow').style.display = 'block';
+          event.preventDefault();
+          return;
+        }
+        if(getCookie('name') === memberForm.name.value && getCookie('number') === memberForm.phn.value) {
+          document.querySelector('#alreadyAdded').style.display = 'block';
           event.preventDefault();
           return;
         }
@@ -163,7 +176,8 @@
           btn.classList.remove('disabledButton');
           btn.classList.add('buttons');
           btn.disabled = false;
-        }, 5000);
+        }, 3000);
+        // document.querySelector('#accuracyTooLow').style.display = 'none';
         document.querySelector('#accuracyTooLow').style.display = 'none';
       }
     </script>
